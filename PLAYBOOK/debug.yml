@@ -1,0 +1,14 @@
+- name: example of register variable
+  hosts: all
+  tasks: 
+    - name: please run the command "uname -m"
+      command: uname -m
+      register: xyz
+
+    - debug: 
+          var: xyz.stdout
+
+    - name: stare h/w mode into /etc/motd file
+      copy: 
+        content: "your server hardware mode is {{ xyz.stdout }}"
+        dest: /etc/motd

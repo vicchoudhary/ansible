@@ -1,0 +1,19 @@
+- name: Deploying Webserver
+  hosts: all
+  gather_facts: false
+  remote_user: ansible 
+  become: true
+  become_user: root
+  tasks:
+   - name: create directory /tmp/cloud
+     file:
+       path: /tmp/cloud
+       state: directory
+   - name: copy /etc/fstab into /tmp/cloud 
+     copy:
+       src: /etc/fstab
+       dest: /tmp/cloud
+   - name: crond restart
+     service:
+       name: crond
+       state: restarted

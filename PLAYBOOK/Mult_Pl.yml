@@ -1,0 +1,27 @@
+- name: Deploying Webserver
+  hosts: web
+  gather_facts: false
+  remote_user: ansible
+  become: true
+  become_user: root
+  tasks:
+   - name: copy /etc/fstab into /home/ansible
+     copy:
+       src: /etc/fstab
+       dest: /home/ansible
+
+   - command: systemctl start crond
+
+
+- name: 2nd play
+  hosts: test 
+  become: true
+  tasks: 
+   - name: downloading file
+     get_url: 
+             url: https://docs.ansible.com/ansible/latest/reference_appendices/YAMLSyntax.html 
+             dest: /root 
+
+   - name: add user 
+     user: vicky 
+     state: present 

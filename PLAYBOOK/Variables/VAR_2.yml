@@ -1,0 +1,19 @@
+- name: exampole of playbook level
+  hosts: all
+  vars_files: 
+   - /home/ansible/PLAYBOOK/Variables/comm_var_file.yml
+  tasks:
+     - name: install the package
+       yum: 
+         name: "{{ mypkg }}"
+         state: installed 
+
+     - name: create document root
+       file: 
+          path: "{{ web_root }}"
+          state: directory
+
+     - name: copy "{{ app }}" into "{{ web_root}}"
+       copy: 
+           src: "/home/ansible/PLAYBOOK/Variables/{{ app }}"
+           dest: "{{ web_root }}"

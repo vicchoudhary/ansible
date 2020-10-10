@@ -1,0 +1,42 @@
+- name: Example of EC2 instance 
+  hosts: localhost 
+  tasks: 
+    - name: creata  ec2 instance
+      ec2: 
+          aws_access_key: AKIAQSTBBNBXANW4B6HR
+          aws_secret_key: VgMS10ZMybPIla1YvLgcp1qmK7qBXcgIhfP3L0F7
+          count: 1
+          group_id: sg-053d4eef6674bc2de
+          image: ami-0b2045146eb00b617
+          instance_type: t2.micro
+          key_name: MyLinuxKey01
+          region: ap-southeast-2
+          wait: yes
+          vpc_subnet_id: subnet-5cb1be15
+
+    - name: RDS instance 
+      rds:
+          aws_access_key: AKIAQSTBBNBXANW4B6HR
+          aws_secret_key: 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
+          command: create
+          instance_name: db1
+          db_engine: MySQL
+          size: '10'
+          instance_type: db.m4.large
+          region: ap-southeast-2
+          username: mysql_admin
+          password: 1nsecure
+          tags:
+            Environment: testing
+            Application: cms
+
+    - name: create VPC
+      ec2_vpc_net: 
+          aws_access_key: AKIAQSTBBNBXANW4B6HR
+          aws_secret_key: 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
+          name: training_vpc 
+          cidr_block: 10.0.0.0/16 
+          region: ap-southeast-2
+          tags: 
+            key: name 
+            value: trainingVPC

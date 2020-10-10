@@ -1,0 +1,7 @@
+- name: Example of setup module in playbook
+  hosts: all 
+  tasks: 
+    - name: copy kernal version into /etc/motd
+      copy: 
+          content: "{{ ansible_kernel }}"
+          dest: /etc/motd

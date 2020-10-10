@@ -1,0 +1,15 @@
+- hosts: all 
+  become: true
+  vars_prompt:
+         - name: username 
+           prompt: "Please give username"
+           private: no
+
+         - name: password
+           prompt: "Please give your password"
+           private: yes
+  tasks: 
+    - name: add user and applying password
+      user: 
+            name: "{{ username }}"
+            password: "{{ password | password_hash('sha512') }}"

@@ -1,0 +1,15 @@
+- hosts: all
+  gather_facts: false
+  tasks: 
+   - file: 
+       path: /tmp/cloud
+       state: directory
+   - copy: 
+       src: /etc/fstab
+       dest: /tmp/cloud
+   - service: 
+       name: crond
+       state: restarted
+   - yum: 
+       name: ftp
+       state: installed

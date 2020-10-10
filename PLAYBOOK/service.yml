@@ -1,0 +1,17 @@
+   - name: start firewalld
+     service:
+         name: firewalld 
+         state: started 
+
+   - name: whitelist http rule into firewalld 
+     firewalld:
+         port: 8080/tcp
+         permanent: yes 
+         state: enabled 
+         immediate: true
+ 
+   - name: start service httpd 
+     service:
+        name: httpd
+        state: started  
+        enabled: true

@@ -1,0 +1,29 @@
+- name: Example of webserver deployment 
+  hosts: all
+  become: true 
+  tasks: 
+   - name: install httpd
+     yum: 
+       name:
+         - httpd
+         - firewalld 
+       state: installed 
+
+   - name: create document root 
+     file: 
+       path: /var/www/html 
+       state: directory 
+
+   - name: copy index.html page into /var/www/html 
+     copy:
+         src: code/
+         dest: /var/www/html 
+   - name: Ensure the default Apache port is 8080 
+     lineinfile:
+         path: /etc/httpd/conf/httpd.conf 
+         regexp: '^Listen '
+         insertafter: '^#Listen '
+         line: Listen 8080 
+   
+   - name: Import other task file
+     import_tasks: /home/ansible/PLAYBOOK/service.yml

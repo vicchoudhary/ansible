@@ -1,0 +1,11 @@
+- name: Example of Inventory Level Variable 
+  hosts: all
+  tasks: 
+    - name: create webroot over the both system
+      file: 
+          path: "{{ web_root }}"
+          state: directory
+
+    - debug:
+           var: web_root
+

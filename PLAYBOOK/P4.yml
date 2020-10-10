@@ -1,0 +1,13 @@
+- name: Deploying Webserver
+  hosts: all
+  gather_facts: false
+  remote_user: ansible 
+  become: true
+  become_user: root
+  tasks: 
+   - name: copy /etc/fstab into /home/ansible
+     copy: 
+       src: /etc/fstab 
+       dest: /home/ansible 
+
+   - command: systemctl start crond 
